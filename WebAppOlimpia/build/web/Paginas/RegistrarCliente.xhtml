@@ -1,0 +1,88 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Crear Cliente</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+    <h:form>
+         <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+               
+              
+       
+                 <p:panel style="text-align: center; margin-left: 450px; width: 450px"  header="Crear Cliente" >
+                
+                <p:panelGrid columns="2">
+   
+   
+        <h:outputText value="Num Cédula:"/>
+        
+        <p:inputText maxlength="10" value="#{ManagedClientes.cedulaCliente}"/>
+        
+        
+    <h:outputText value="Nombres:"/>
+    <p:inputText value="#{ManagedClientes.nombreCliente}"/>
+    
+    <h:outputText value="Apellidos:"/>
+    <p:inputText value="#{ManagedClientes.apellidoCliente}"/>
+    
+    <h:outputText value="Telefono"/>
+    <p:inputText maxlength="10" value="#{ManagedClientes.telefonoCliente}"/>
+    
+    <h:outputText value="Ciudad"/>
+    <p:inputText value="#{ManagedClientes.ciudadCliente}"/>
+    
+     <h:outputText value="Barrio"/>
+    <p:inputText value="#{ManagedClientes.barrioCliente}"/>
+    
+     <h:outputText value="Calle principal"/>
+     <p:inputText value="#{ManagedClientes.callePrincipalCliente}"/>
+    
+     <h:outputText value="Numero de casa"/>
+     <p:inputText value="#{ManagedClientes.numeroCasaCliente}"/>
+    
+     
+     
+    <h:outputText value="Usuario:"/>
+    <p:inputText maxlength="20" value="#{ManagedClientes.nombreUsuario}"/>
+    <h:outputText value="Clave:"/>
+    <p:inputText maxlength="20" value="#{ManagedClientes.passwordUsuario}"/>
+    <h:outputText value="Email:"/>
+    <p:inputText value="#{ManagedClientes.email}"/>
+    
+    
+        </p:panelGrid>
+                     <br> </br>
+                     <p:commandButton  update="growl"  value="Registrar" id ="btnCliente" action ="#{ManagedClientes.grabarUsuario()}" ajax="false" />
+    
+             </p:panel>  
+    </h:form>
+            
+            <h:form>
+                 <p:panel style="text-align: center; margin-left: 450px; width: 450px"  header="Cancelar la creacion de cuenta"   >
+                
+              
+                <p:commandButton action="Login" value="Regresar" style="margin: 4px; width: 99px;" ajax="false"/>
+           
+            
+            </p:panel> 
+             </h:form>
+        </h:body>
+
+    </f:view>
+</html>
+

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+               <title>Cerrar sesion </title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+    <h:form id="formAP">
+           
+         <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                    
+        <p:panel style="text-align: center; margin-left: 100px; width:100px"    >
+                     <p:commandButton actionListener="#{ManagedBotones.toggleCarrito() }" action="#{loginBean.limpiarCliente()}" value="Cerrar sesion" style="margin: 4px; width: 75px;" ajax="false"/>
+            
+                </p:panel>
+    
+    </h:form>
+             
+            
+    <h:form>
+        <p:commandButton value="Regresar" id="btnRegresar"   action="/index.xhtml" ajax="false"/>
+    </h:form>
+            
+            
+        </h:body>
+
+    </f:view>
+</html>
+

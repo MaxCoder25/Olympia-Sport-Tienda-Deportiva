@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+          
+             <f:facet name="first">  
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Listar Facturas</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+            
+                
+            
+             <h:form id="formFactura">
+                
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                <p:panel style="text-align: center; margin-left: 75px; width:1400px" header="Listar Facturas  "> 
+                
+  
+                <p:dataTable id="tablaFactura" var="columna" value="#{JSFMBPedidoFactura.listadoDetalleFactura}" paginator="true" rows="10">
+             
+                    <p:column filterBy="#{columna.cabeceraFacturaNumFactura.numFactura}" headerText="Número de Factura ">
+                        <h:outputText value="#{columna.cabeceraFacturaNumFactura.numFactura}" />
+                </p:column>
+                 
+                            
+                    <p:column filterBy="#{columna.idDetalleFactura}" headerText="Detalle numero: ">
+                    <h:outputText value="#{columna.idDetalleFactura}" />
+                </p:column> 
+                
+                    <p:column filterBy="#{columna.productoIdProducto.nombreProducto}" headerText="Nombre Producto ">
+                        <h:outputText value="#{columna.productoIdProducto.nombreProducto}" />
+                </p:column> 
+                
+                    <p:column filterBy="#{columna.cantidadProducto}" headerText="Cantidad: ">
+                    <h:outputText value="#{columna.cantidadProducto}" />
+                </p:column> 
+                
+                    <p:column filterBy="#{columna.precioProducto}" headerText="Precio">
+                        <h:outputText value="#{columna.precioProducto}">
+                            <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                        </h:outputText>
+                    </p:column> 
+                
+                                     
+                            
+                    <p:column filterBy="#{columna.cabeceraFacturaNumFactura.clienteIdCliente.apellidoCliente}" headerText="Cliente: ">
+                    <h:outputText value="#{columna.cabeceraFacturaNumFactura.clienteIdCliente.apellidoCliente} #{columna.cabeceraFacturaNumFactura.clienteIdCliente.nombreCliente}" />
+                </p:column> 
+                
+                    <p:column filterBy="#{columna.cabeceraFacturaNumFactura.fecha}" headerText="Fecha Factura ">
+                        <h:outputText value="#{columna.cabeceraFacturaNumFactura.fecha}" />
+                </p:column> 
+                
+                    <p:column filterBy="#{columna.cabeceraFacturaNumFactura.modoPagoIdModoPago.descripcionModoPago}" headerText="Modo de pago ">
+                    <h:outputText value="#{columna.cabeceraFacturaNumFactura.modoPagoIdModoPago.descripcionModoPago}" />
+                </p:column> 
+                
+                    <p:column filterBy="#{columna.cabeceraFacturaNumFactura.vendedorIdVendedor.apellidoVendedor}" headerText="Vendedor ">
+                        <h:outputText value="#{columna.cabeceraFacturaNumFactura.vendedorIdVendedor.apellidoVendedor} #{columna.cabeceraFacturaNumFactura.vendedorIdVendedor.nombreVendedor}"/>
+                         
+                </p:column> 
+                
+                    <p:column>
+                  <p:commandLink   update=":formFactura:tablaFactura" process=":formFactura:tablaFactura" value="Eliminar" actionListener="#{JSFMBPedidoFactura.eliminarFactura2(columna)}" action="#{JSFMBPedidoFactura.eliminarFactura(columna)}"> 
+                      <p:collector value="#{columna}" removeFrom="#{JSFMBPedidoFactura.listadoCabeceraFactura}" unique="true"/> 
+                      <p:collector value="#{columna}" removeFrom="#{JSFMBPedidoFactura.listadoDetalleFactura}" unique="true"/>
+                 </p:commandLink>
+                </p:column>
+
+               
+                
+                
+            </p:dataTable>
+                              </p:panel>   
+               </h:form>
+            
+            
+            
+            <h:form>
+                <p:panel style="text-align: center; margin-left: 75px; width:1400px"  > 
+                <p:commandButton action="PrincipalAdmin" value="Regresar" style="margin: 4px; width: 99px;" ajax="false"/>
+               </p:panel>
+            </h:form>
+            
+        </h:body>
+
+    </f:view>
+</html>

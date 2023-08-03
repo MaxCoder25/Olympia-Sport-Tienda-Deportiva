@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Agregar Producto </title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+            <h:form id="formAP">
+
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+
+                <p:panel style="text-align: center; margin-left: 450px; width:600px"  header="Agregar Producto" >
+                    <p:panelGrid columns="2">
+
+
+                        <h:outputText value="Nombre Producto"/>
+                        <p:inputText value="#{ManagedProductos.nombreProducto}"/>
+
+
+
+                        <h:outputText value="Marca" />
+                        <p:selectOneMenu id="marcaFK" value="#{ManagedProductos.marcaid_FK_Producto}">
+                            <f:selectItem itemLabel="Seleccione Marca" itemValue="" />
+                            <f:selectItems value="#{ManagedProductos.listaMarca}" var="lm" 
+                                           itemLabel="#{lm.nombreMarca} " itemValue="#{lm.idMarca}" />
+                        </p:selectOneMenu>
+
+
+                        <h:outputText value="Descripcion Producto"/>
+                        <p:inputText value="#{ManagedProductos.descripcionProducto}"/>
+
+                        <h:outputText value="Stock inicial Producto"/>
+                        <p:inputText value="#{ManagedProductos.stockProducto}"/>
+
+                        <h:outputText value="Precio Producto"/>
+                        <p:inputText value="#{ManagedProductos.precioProducto}"/>
+
+                        <h:outputText value="Comentarios Producto"/>
+                        <p:inputText value="#{ManagedProductos.comentariosProducto}"/>
+
+                        <h:outputText value="Nombre de imagen de producto"/>
+                        <p:inputText value="#{ManagedProductos.imagen}"/>
+
+
+
+
+                        <h:outputText value="Proveedor" />
+                        <p:selectOneMenu id="proveedor" value="#{ManagedProductos.proveedorid_FK_Producto}">
+                            <f:selectItem itemLabel="Seleccione Proveedor" itemValue="" />
+                            <f:selectItems value="#{ManagedProductos.listaProveedor}" var="ln" 
+                                           itemLabel="#{ln.nombreProveedor} " itemValue="#{ln.idProveedor}" />
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Categoria" />
+                        <p:selectOneMenu id="categoria" value="#{ManagedProductos.categoriaid_FK_Producto}">
+                            <f:selectItem itemLabel="Seleccione Categoria" itemValue="" />
+                            <f:selectItems value="#{ManagedProductos.listaCategoria}" var="lo" 
+                                           itemLabel="#{lo.nombreCategoria} " itemValue="#{lo.idCategoria}" />
+                        </p:selectOneMenu>
+
+                        <h:outputText value="Subcategoria" />
+                        <p:selectOneMenu id="subCategoria" value="#{ManagedProductos.subcategoriaid_FK_Producto}">
+                            <f:selectItem itemLabel="Seleccione Subcategoria" itemValue="" />
+                            <f:selectItems value="#{ManagedProductos.listaSubcategoria}" var="lp" 
+                                           itemLabel="#{lp.nombreSubcategoria} " itemValue="#{lp.idSubcategoria}" />
+                        </p:selectOneMenu>
+
+
+
+
+
+                        <h:outputText value=" "/>
+
+                        <p:commandButton update="growl" value="Registrar" id ="btnProducto" action ="#{ManagedProductos.grabarProducto()}"   />
+
+
+                    </p:panelGrid>
+                </p:panel>   
+
+            </h:form>
+
+
+
+            <h:form>
+                <p:panel style="text-align: center; margin-left: 450px; width:600px"    >
+
+                    <p:commandButton value="Regresar" id="btnRegresar" style="margin: 4px" action="PrincipalAdmin.xhtml" ajax="false"/>
+                </p:panel>
+            </h:form>
+
+
+        </h:body>
+
+    </f:view>
+</html>

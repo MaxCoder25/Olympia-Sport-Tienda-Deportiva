@@ -1,0 +1,87 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Empresa</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body" >
+            <h:form id="form">
+                <div id="top" >
+                    <h1 style="text-align: center ; color: #ffffff; font-size: 35px">OLYMPIA SPORTS</h1>
+                </div>
+                <div id="card">
+                    <p:tabMenu activeIndex="#{param.i}">
+                        <p:menuitem value="Catalogo de Productos" outcome="/index" icon="ui-icon-home">
+                            <f:param name="i" value="0"/>
+                        </p:menuitem>
+                        <p:menuitem value="Carrito" outcome="/Paginas/Carrito" icon="ui-icon-cart">
+                            <f:param name="i" value="1"/>
+                        </p:menuitem>
+                        <p:menuitem value="Informacion" outcome="/Paginas/Empresa" icon="ui-icon-info">
+                            <f:param name="i" value="2"/>
+                        </p:menuitem>
+                        <p:menuitem value="Iniciar Sesion" outcome="/Paginas/Login" icon="ui-icon-power" >
+                            <f:param name="i" value="3"/>
+                        </p:menuitem>
+                    </p:tabMenu>
+                </div>
+                <h3>    </h3>
+                
+                <div>
+ 
+                
+
+                    <p:panelGrid columns="1" style="width: 100%">
+                        <p:accordionPanel widgetVar="basic">
+                            <p:tab title="Mision:">
+                                <p class="p-m-0">
+                                   Tenemos como misión ofrecer implementación deportiva y accesorios para todo tipo de deporte en las mejores marcas del mercado mediante un servicio personalizado, dinámico, ético y con precios al alcance de nuestros clientes para satisfacer sus expectativas.
+                                </p>
+                            </p:tab>
+                            <p:tab title="Vision:">
+                                <p class="p-m-0">
+                                   Nuestra visión es la de convertirnos en una tienda líder en el mercado local y nacional a través de la implementación de una política de servicio basado en nuestra experiencia y ética profesional.
+                                </p>
+                            </p:tab>
+                            <p:tab title="Sobre Olympia Sports">
+                                <p class="p-m-0">Olympia Sports cuenta con una de las más completas ofertas en implementos, calzado, ropa y artículos deportivos para todo nivel de juego, desde el deportista casual y de fin de semana, hasta el deportista semiprofesional y profesional. 
+                                    Comprometidos en mantener un alto Standard de calidad en todas sus líneas y además una relación justa y razonable entre producto y precio, valores que han permitido introducir, crecer y mantener prestigiosas marcas a través de los años. 
+                                    La ideología de la marca empieza desde su slogan “EL ATLETA QUE HAY EN TI”, esta expresión se basa en que toda persona, cualquiera que sea su ocupación, género o edad ha practicado o puede practicar deporte y ser un deportista, 
+                                    Olympia Sport busca fomentar y desarrollar esa faceta para llevar un estilo de vida más saludable y activo.
+                                    
+                                </p>
+                            </p:tab>
+                        </p:accordionPanel>
+                        <p:imageSwitch effect="fade" id="fadeEffect">
+                            <ui:repeat value="#{JSFMBEmpresa.images}" var="image" id="fadeEffectImages">
+                                <p:graphicImage name="../resources/imagenes/#{image}" id="image2" style="width: 100%; height: 500px"/>
+                            </ui:repeat>
+                        </p:imageSwitch>
+                    </p:panelGrid>
+
+                    <br></br>              
+                </div>
+            </h:form>
+            <h:form>
+
+            </h:form>
+            <br></br>
+            <div style="height: 30px; background-color: #AFAFAF">
+                <h1 style="text-align: center ; color: #ffffff; font-size: 15px">Quito-Ecuador ® 2021 Olympia Sports All rights reserved</h1>
+            </div>
+        </h:body>
+
+    </f:view>
+</html>
+

@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <link rel="stylesheet" href="./../resources/css/styles.css"/>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"></link>
+
+    <h:head>
+        <title>Login</title>
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" showDetail="true" >
+            <p:autoUpdate/>
+        </p:growl>
+        <h:form class="form-box animated fadeInUp">
+            <h1 class="form-title">Ingreso</h1>
+            
+            <p:inputText id="txtUsuario" value="#{loginBean.correo}"  placeholder="UserName"/>
+            <p:password id="txtClave" value="#{loginBean.clave}"  placeholder="Password"/>
+            <h:column/>
+            <p:commandButton ajax="false" value="Ingresar"  action="#{loginBean.iniciarSesion()}" update="growl"/>
+            <br></br>
+            <br></br>
+ 
+            <h3 class="form-title">¿No tiene una cuenta?</h3>
+           
+            <p:commandButton value="Registrar" action="RegistrarCliente.xhtml" ajax="false"/>
+
+            <br></br>
+            <br></br>
+            
+            <p:button value="Regresar" outcome="/index.xhtml"/>
+
+        </h:form>
+        
+        
+    </h:body>
+</html>
+

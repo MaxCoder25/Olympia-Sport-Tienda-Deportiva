@@ -1,0 +1,136 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+
+            <f:facet name="first">  
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Listar Reclamos</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+            <h:form id="formReclamos">
+
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+
+                <p:panel style="text-align: center; margin-left: 75px; width:1400px" header="Listar Reclamos "  >
+
+
+                    <p:dataTable id="tablaReclamos" var="columna" value="#{ManagedReclamo.listaReclamo}" paginator="true" rows="10">
+
+                        <p:column filterBy="#{columna.idReclamo}" headerText="Número de reclamo ">
+                            <h:outputText value="#{columna.idReclamo}" />
+                        </p:column>
+
+
+                        <p:column filterBy="#{columna.clienteIdCliente.apellidoCliente}" headerText="Cliente: ">
+                            <h:outputText value="#{columna.clienteIdCliente.apellidoCliente} #{columna.clienteIdCliente.nombreCliente}" />
+                        </p:column> 
+
+                        <p:column filterBy="#{columna.tipoReclamoIdTipoReclamo.tipoDeReclamo}" headerText="Tipo de Reclamo">
+                            <h:outputText value="#{columna.tipoReclamoIdTipoReclamo.tipoDeReclamo}" />
+                        </p:column> 
+
+                        <p:column  headerText="Descripcion Reclamo ">
+                            <h:outputText value="#{columna.descripcionReclamo}" />
+
+                        </p:column> 
+
+                        <p:column filterBy="#{columna.fechaIngresoReclamo}" headerText="Fecha Ingreso Reclamo ">
+                            <h:outputText value="#{columna.fechaIngresoReclamo}" />
+                        </p:column> 
+
+                        <p:column filterBy="#{columna.fechaSolucionReclamo}" headerText="Fecha Solucion Reclamo ">
+                            <h:outputText value="#{columna.fechaSolucionReclamo}" />
+                        </p:column> 
+
+
+
+                        <p:column filterBy="#{columna.estadoReclamoIdEstadoReclamo.descripcionEstadoReclamo}" headerText="Estado del reclamo">
+                            <h:outputText value="#{columna.estadoReclamoIdEstadoReclamo.descripcionEstadoReclamo}" />
+                        </p:column> 
+
+                        <p:column >
+                            <p:commandButton actionListener="#{ManagedReclamo.cargarIdReclamo(columna)}" update=":da" value="Editar"  oncomplete="PF('adm').show()"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </p:panel> 
+            </h:form>
+
+            <h:form>
+                <p:panel style="text-align: center; margin-left: 75px; width:1400px"  >
+
+                    <p:commandButton action="PrincipalVendedor" value="Regresar" style="margin: 4px; width: 99px;" ajax="false"/>
+                </p:panel>
+            </h:form>
+
+
+            <p:dialog widgetVar="adm" modal="true" showEffect="clip" resizable="false" header="Editar reclamo">
+                <h:form id="da">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="idReclamo"></p:outputLabel>
+                        <p:inputText value="#{ManagedReclamo.reclamo.idReclamo}" required="true"></p:inputText>
+
+                        <p:outputLabel value="Nombre Cliente"></p:outputLabel>
+                        <p:outputLabel value="#{ManagedReclamo.reclamo.clienteIdCliente.apellidoCliente} #{ManagedReclamo.reclamo.clienteIdCliente.nombreCliente}" ></p:outputLabel>
+
+                        <p:outputLabel value="Tipo de reclamo"></p:outputLabel>
+                        <p:outputLabel value="#{ManagedReclamo.reclamo.tipoReclamoIdTipoReclamo.tipoDeReclamo} : #{ManagedReclamo.reclamo.tipoReclamoIdTipoReclamo.descripcioTipoReclamo}"></p:outputLabel>
+
+                        <p:outputLabel value="Descripcion reclamo"></p:outputLabel>
+                        <p:outputLabel value="#{ManagedReclamo.reclamo.descripcionReclamo}"></p:outputLabel>
+
+                        <p:outputLabel value="Fecha Ingreso reclamo"></p:outputLabel>
+                        <p:outputLabel value="#{ManagedReclamo.reclamo.fechaIngresoReclamo}"></p:outputLabel>
+
+                        <p:outputLabel value="Fecha Solucion reclamo"></p:outputLabel>
+                        <p:outputLabel value="#{ManagedReclamo.reclamo.fechaSolucionReclamo}"></p:outputLabel>
+
+                        <p:outputLabel value="Nombre vendedor"></p:outputLabel>
+                        <p:outputLabel value="#{ManagedReclamo.reclamo.vendedorIdVendedor.apellidoVendedor} #{ManagedReclamo.reclamo.vendedorIdVendedor.nombreVendedor}"></p:outputLabel>
+
+                        <p:outputLabel value="Cambiar estado de reclamo"></p:outputLabel>
+                        <p:selectOneMenu id="estadoReclamoFK" value="#{ManagedReclamo.tipoReclamoIdTipoReclamo}">
+                            <f:selectItem itemLabel="Estado de reclamo" itemValue="" />
+                            <f:selectItems value="#{ManagedReclamo.listaestadoReclamo}" var="er" 
+                                           itemLabel="#{er.descripcionEstadoReclamo} " itemValue="#{er.idEstadoReclamo}" />
+                        </p:selectOneMenu>
+
+
+
+
+                        <p:commandButton value="Guardar" action="#{ManagedReclamo.editarReclamo()}" update=":formReclamos:tablaReclamos" 
+                                         oncomplete="PF('adm').hide()"/>
+
+                    </p:panelGrid>
+
+                </h:form>
+
+            </p:dialog>
+
+
+
+
+
+
+
+
+
+
+
+        </h:body>
+
+    </f:view>
+</html>

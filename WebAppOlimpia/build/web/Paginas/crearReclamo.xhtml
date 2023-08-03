@@ -1,0 +1,72 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+               <title>Agregar Reclamo </title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+    <h:form id="formAP">
+           
+         <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                 <p:panel style="text-align: center; margin-left: 75px; width:1400px"  header="Agregar Reclamo" >
+                
+                
+                
+                <p:panelGrid columns="2">
+
+                    <h:outputText value="Cedula: "/>
+                    <h:outputText value="#{loginBean.c.cedulaCliente}"/>
+
+                    <h:outputText value="Nombre: "/>         
+                    <h:outputText value="#{loginBean.c.nombreCliente} #{loginBean.c.apellidoCliente} "/>
+
+
+                    <h:outputText value="Descripcion Reclamo"/>
+                    <p:inputText  style="height: 25px" size="125" value="#{ManagedReclamo.descripcionReclamo}"/>
+
+           <h:outputText value="Tipo de reclamo" />
+           <p:selectOneMenu id="tipoReclamo" value="#{ManagedReclamo.tipoReclamoIdTipoReclamo}">
+                <f:selectItem itemLabel="Seleccione el tipo de reclamo" itemValue="" />
+                <f:selectItems value="#{ManagedReclamo.listatipoReclamo}" var="tr" 
+                               itemLabel="#{tr.tipoDeReclamo}:   #{tr.descripcioTipoReclamo}" itemValue="#{tr.idTipoReclamo}" />
+            </p:selectOneMenu>
+            
+         
+           
+           
+            <h:outputText value=" " />
+           
+        <p:commandButton update="growl" value="Enviar" id ="btnReclamo" action ="#{ManagedReclamo.grabarReclamo(loginBean.c)}"   />
+        
+
+        </p:panelGrid>
+                        </p:panel>
+           </h:form>
+            
+            
+            
+    <h:form>
+         <p:panel style="text-align: center; margin-left: 75px; width:1400px"     >
+        <p:commandButton value="Regresar" id="btnRegresar" style="margin: 4px" action="/Paginas/PaginaPrincipal.xhtml" ajax="false"/>
+      </p:panel>
+    </h:form>
+            
+            
+        </h:body>
+
+    </f:view>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+
+            <f:facet name="first">  
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Listar Pedidos</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+            <h:form id="formPedidos">
+
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+
+                <p:panel style="text-align: center; margin-left: 75px; width:1400px" header="Listar Pedidos" >
+
+
+                    <p:dataTable id="tablaPedidos" var="columna" value="#{JSFMBPedidoFactura.listadoPedidos}" paginator="true" rows="10">
+
+                        <p:column filterBy="#{columna.numPedido}" headerText="Número de pedido: ">
+                            <h:outputText value="#{columna.numPedido}" />
+                        </p:column>
+
+
+                        <p:column filterBy="#{columna.clienteIdCliente.apellidoCliente}" headerText="Cliente: ">
+                            <h:outputText value="#{columna.clienteIdCliente.apellidoCliente} #{columna.clienteIdCliente.nombreCliente}" />
+                        </p:column> 
+
+                        <p:column filterBy="#{columna.fechaPedido}" headerText="Fecha Pedido: ">
+                            <h:outputText value="#{columna.fechaPedido}" />
+                        </p:column> 
+
+                        <p:column filterBy="#{columna.barrioEntregaPedido}" headerText="Barrio: ">
+                            <h:outputText value="#{columna.barrioEntregaPedido}" />
+                        </p:column> 
+
+                        <p:column filterBy="#{columna.callePrincipalEntregaPedido}" headerText="Calle Principal ">
+                            <h:outputText value="#{columna.callePrincipalEntregaPedido}" />
+
+                        </p:column> 
+
+
+                        <p:column filterBy="#{columna.numeroCasaEntregaPedido}" headerText="Número de Casa: ">
+                            <h:outputText value="#{columna.numeroCasaEntregaPedido}" />
+                        </p:column> 
+
+                        <p:column filterBy="#{columna.estadoPedidoIdEnvioPedido.descripcionEstadoPedido}" headerText="Estado de Pedido">
+                            <h:outputText value="#{columna.estadoPedidoIdEnvioPedido.descripcionEstadoPedido}" />
+                        </p:column> 
+
+
+                        <p:column >
+
+                            <p:commandLink   update=":formPedidos:tablaPedidos" process=":formPedidos:tablaPedidos" value="Eliminar" actionListener="#{JSFMBPedidoFactura.eliminarPedido(columna)}"> 
+                                <p:collector value="#{columna}" removeFrom="#{JSFMBPedidoFactura.listadoPedidos}" unique="true"/> 
+                            </p:commandLink>
+                        </p:column>
+
+                        <p:column >
+                            <p:commandButton actionListener="#{JSFMBPedidoFactura.cargarIdPedido(columna)}" update=":da" value="Editar"  oncomplete="PF('adm').show()"/>
+                        </p:column>
+
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <h:form>
+
+                <p:panel style="text-align: center; margin-left: 75px; width:1400px"  >
+
+                    <p:commandButton action="PrincipalVendedor" value="Regresar" style="margin: 4px; width: 99px;" ajax="false"/>
+                </p:panel>
+            </h:form>
+
+
+            <p:dialog widgetVar="adm" modal="true" showEffect="clip" resizable="false" header="Editar producto">
+                <h:form id="da">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="Número de pedido"></p:outputLabel>
+                        <p:outputLabel value="#{JSFMBPedidoFactura.p.numPedido}"></p:outputLabel>
+
+
+                        <p:outputLabel value="Cliente:"></p:outputLabel>
+                        <p:outputLabel value="#{JSFMBPedidoFactura.p.clienteIdCliente.apellidoCliente} #{JSFMBPedidoFactura.p.clienteIdCliente.nombreCliente}"></p:outputLabel>
+
+                        <p:outputLabel value="Fecha de Pedido"></p:outputLabel>
+                        <p:outputLabel value="#{JSFMBPedidoFactura.p.fechaPedido }"></p:outputLabel>
+
+
+
+
+
+                        <p:outputLabel value="Estado del Pedido"></p:outputLabel>
+
+                        <p:selectOneMenu id="estadoPedidoFK" value="#{JSFMBPedidoFactura.estadoPedidoid_FK}">
+                            <f:selectItem itemLabel="Seleccione Estado del Pedido" itemValue="" />
+                            <f:selectItems value="#{JSFMBPedidoFactura.listadoEstadoPedido}" var="ep" 
+                                           itemLabel="#{ep.descripcionEstadoPedido} " itemValue="#{ep.idEstadoPedido}" />
+                        </p:selectOneMenu>
+
+
+
+
+
+
+                        <p:commandButton   value="Guardar" action="#{JSFMBPedidoFactura.editarPedido()}" update=":formPedidos:tablaPedidos" 
+                                           oncomplete="PF('adm').hide()"/>
+
+                    </p:panelGrid>
+
+                </h:form>
+
+            </p:dialog>
+
+
+
+
+        </h:body>
+
+    </f:view>
+</html>

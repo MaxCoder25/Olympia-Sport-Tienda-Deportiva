@@ -1,0 +1,150 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+          
+             <f:facet name="first">  
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Listar Productos</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body">
+            <h:form id="formProduc">
+                
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                
+                <p:panel style="text-align: center; margin-left: 75px; width:1400px"   header="Listar Productos" >
+                   <p:dataTable id="tablaProduc" var="columna" value="#{ManagedProductos.listaProducto}" paginator="true" rows="10"   >
+            
+                <p:column filterBy="#{columna.nombreProducto}" headerText="Nombre Producto">
+                    <h:outputText value="#{columna.nombreProducto}" />
+                </p:column>
+
+                 <p:column filterBy="#{columna.descripcionProducto}" headerText="Descripcion Producto">
+                    <h:outputText value="#{columna.descripcionProducto}" />
+                </p:column> 
+                
+                 <p:column filterBy="#{columna.stockProducto}" headerText="Stock Producto">
+                    <h:outputText value="#{columna.stockProducto}" />
+                </p:column> 
+                
+                 <p:column filterBy="#{columna.comentariosProducto}" headerText="Comentarios Producto">
+                    <h:outputText value="#{columna.comentariosProducto}" />
+                </p:column> 
+                
+                 <p:column filterBy="#{columna.precioProducto}" headerText="Precio Producto">
+                    <h:outputText value="#{columna.precioProducto}" >
+                         <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                          </h:outputText>
+                </p:column> 
+                
+                
+                <p:column filterBy="#{columna.marcaProducto}" headerText="Marca Producto">
+                    <h:outputText value="#{columna.marcaProducto}" />
+                </p:column> 
+                    
+                <p:column filterBy="#{columna.paisFabricaProducto}" headerText="Pais Producto">
+                    <h:outputText value="#{columna.paisFabricaProducto}" />
+                </p:column> 
+                               
+                
+                <p:column filterBy="#{columna.ivaProducto}" headerText="Iva Producto">
+                    <h:outputText value="#{columna.ivaProducto}" >
+                    
+                    <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                    </h:outputText>
+                </p:column> 
+                
+                <p:column filterBy="#{columna.descuentoProducto}" headerText="Descuento Producto">
+                    <h:outputText value="#{columna.descuentoProducto}" >
+                         <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                          </h:outputText>
+                    
+                </p:column>
+            
+            
+                <p:column >
+                     
+                  <p:commandLink   update=":formProduc:tablaProduc" process=":formProduc:tablaProduc" value="Eliminar" actionListener="#{ManagedProductos.eliminarProducto(columna)}"> 
+                <p:collector value="#{columna}" removeFrom="#{ManagedProductos.listaProducto}" unique="true"/> 
+                 </p:commandLink>
+                </p:column>
+
+                <p:column >
+                    <p:commandButton actionListener="#{ManagedProductos.cargarIdProducto(columna)}" update=":da" value="Editar"  oncomplete="PF('adm').show()"/>
+                </p:column>
+
+
+                
+            </p:dataTable>
+                </p:panel> 
+                
+                 
+                
+               </h:form>
+            
+            <h:form>
+                  <p:panel style="text-align: center; margin-left: 75px; width:1400px"     >
+               
+                <p:commandButton action="PrincipalVendedor" value="Regresar" style="margin: 4px; width: 99px;" ajax="false"/>
+                </p:panel>
+                
+            </h:form>
+            
+            
+            
+            <p:dialog widgetVar="adm" modal="true" showEffect="clip" resizable="false" header="Editar producto">
+                    <h:form id="da">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="idProducto"></p:outputLabel>
+                            <p:inputText value="#{ManagedProductos.producto.idProducto}" required="true"></p:inputText>
+                            <p:outputLabel value="nombreProducto"></p:outputLabel>
+                            <p:inputText value="#{ManagedProductos.producto.nombreProducto}" required="true"></p:inputText>
+                            <p:outputLabel value="descripcionProducto"></p:outputLabel>
+                            <p:inputText value="#{ManagedProductos.producto.descripcionProducto }" required="true"></p:inputText>
+                            <p:outputLabel value="stockProducto"></p:outputLabel>
+                            <p:inputText value="#{ManagedProductos.producto.stockProducto}" required="true"></p:inputText>
+                            <p:outputLabel value="comentariosProducto"></p:outputLabel>
+                            <p:inputText value="#{ManagedProductos.producto.comentariosProducto}" required="true"></p:inputText>
+                            <p:outputLabel value="precioProducto"></p:outputLabel>
+                            <p:inputText value="#{ManagedProductos.producto.precioProducto}" required="true"></p:inputText>
+                            
+                            <p:outputLabel value="marcaProducto"></p:outputLabel>
+
+                            <p:selectOneMenu id="marcaFK" value="#{ManagedProductos.marcaid_FK_Producto}">
+                                <f:selectItem itemLabel="Seleccione Marca" itemValue="" />
+                                <f:selectItems value="#{ManagedProductos.listaMarca}" var="lm" 
+                                               itemLabel="#{lm.nombreMarca} " itemValue="#{lm.idMarca}" />
+                            </p:selectOneMenu>
+                            
+                            <p:outputLabel value="descuentoProducto"></p:outputLabel>
+                            <p:inputText value="#{ManagedProductos.producto.descuentoProducto}" required="true"></p:inputText>
+                            
+                            <p:commandButton value="Guardar" action="#{ManagedProductos.editarProducto()}" update=":formProduc:tablaProduc" 
+                                             oncomplete="PF('adm').hide()"/>
+                                
+                        </p:panelGrid>
+
+                    </h:form>
+
+                </p:dialog>
+            
+            
+            
+            
+            
+        </h:body>
+
+    </f:view>
+</html>

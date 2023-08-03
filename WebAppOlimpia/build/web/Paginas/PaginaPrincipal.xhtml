@@ -1,0 +1,216 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">  
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Principal</title>
+            </f:facet>
+
+        </h:head>
+
+        <h:body id="body">
+            <h:form id="form">
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                <div id="top" >
+                    <h1 style="text-align: center ; color: #ffffff; font-size: 35px"> </h1>
+                </div>
+                <div id="card">
+                    <p:tabMenu activeIndex="#{param.i}">
+                        <p:menuitem value="Catalogo de Productos" outcome="/Paginas/PaginaPrincipal" icon="ui-icon-home">
+                            <f:param name="i" value="0"/>
+                        </p:menuitem>
+                        <p:menuitem value="Carrito" outcome="/Paginas/CarritoLogin" icon="ui-icon-cart">
+                            <f:param name="i" value="1"/>
+                        </p:menuitem>
+                        <p:menuitem value="Informacion" outcome="/Paginas/EmpresaLogin" icon="ui-icon-info">
+                            <f:param name="i" value="2"/>
+                        </p:menuitem>
+
+                        
+
+                        <p:menuitem value="Pedidos Cliente" outcome="/Paginas/ListarPedidosC" icon="ui-icon-info" >
+                            <f:param name="i" value="3"/>
+                        </p:menuitem>
+                        
+                        <p:menuitem value="Facturas" outcome="/Paginas/ListarFacturasC" icon="ui-icon-info" >
+                            <f:param name="i" value="4"/>
+                        </p:menuitem>
+
+                        <p:menuitem value="Enviar reclamo" outcome="/Paginas/crearReclamo" icon="ui-icon-info" >
+                            <f:param name="i" value="5"/>
+                        </p:menuitem>
+
+
+                        <p:menuitem value="Usuario en Linea: #{loginBean.c.nombreCliente}  #{loginBean.c.apellidoCliente} "  >
+                            <f:param name="i" value="6"/>
+                        </p:menuitem>
+                        
+                        <p:menuitem ajax="false" value="Cerrar Sesion" action="#{loginBean.limpiarCliente()}" outcome="/index" icon="ui-icon-power" >
+                            <f:param name="i" value="7"/>
+                        </p:menuitem> 
+                        
+                        
+
+                    </p:tabMenu>
+                </div>
+                
+                <p:imageSwitch effect="fade" id="fadeEffect">
+                    <ui:repeat value="#{JSFMBEmpresa.images}" var="image" id="fadeEffectImages">
+                        <p:graphicImage name="../resources/imagenes/#{image}" id="image2" style="width: 100%; height: 350px"/>
+                    </ui:repeat>
+                </p:imageSwitch>
+
+                <p:carousel value="#{JSFMBCarrito.listadoMejoresProductos}" var="produc" style="background-color: white">
+                    <f:facet name="header">
+                        Nuestros mejores productos 
+                    </f:facet>
+
+                    <p:panel header="#{produc.nombreProducto}" style="background-color: #AFAFAF">
+                        <h:panelGrid columns="1" style="width: 100%; text-align: center">
+                            <p:graphicImage name="/imagenes/#{produc.imagen}.jpg" style="height: 150px"/>
+                            <h:outputText value="#{produc.categoriaIdCategoria.nombreCategoria}" />
+                            <h:outputText value="#{produc.marcaProducto}" />
+                            <h:outputText value="#{produc.nombreProducto}" />
+                            <h:outputText value="#{produc.precioProducto}" />
+                        </h:panelGrid>
+                        <p:commandButton icon="ui-icon-circle-plus" value="Agregar al Carrito" action="#{JSFMBCarrito.reinit()}" update=":form:books" onclick="PF('carDialog').hide();" >
+                            <p:collector value="#{produc}" addTo="#{JSFMBCarrito.lstarticulos}" unique="true"/>
+                        </p:commandButton>
+                    </p:panel>
+                </p:carousel>
+                <br></br>
+
+                <p:dataGrid id="datagridProducto" value="#{JSFMBCarrito.productoCollection}" var="produc" style="background-color: black">
+                    <f:facet name="header">
+
+
+
+
+
+                        <p:selectOneMenu id="Categorias" value="#{JSFMBCarrito.idCategoriaParaFiltrado}">
+                            <f:selectItem itemLabel="Buscar por categoria" itemValue=""  />
+
+                            <f:selectItems value="#{JSFMBCarrito.listaCategoria}" var="categoria" 
+                                           itemLabel="#{categoria.nombreCategoria}" itemValue="#{categoria.idCategoria}" />  
+
+                        </p:selectOneMenu>
+                        <p:commandButton  update ="datagridProducto" action ="#{JSFMBCarrito.filtrarPorCategoria()}" value="" icon="ui-icon-search" style="height: 30px; text-align: center"/>
+
+
+
+
+
+
+                        <p:selectOneMenu id="Subcategorias" value="#{JSFMBCarrito.idsubCategoriaParaFiltrado}">
+                            <f:selectItem itemLabel="Buscar por Subcategoria" itemValue=""  />
+
+                            <f:selectItems value="#{JSFMBCarrito.listaSubcategoria}" var="categoria" 
+                                           itemLabel="#{categoria.nombreSubcategoria}" itemValue="#{categoria.idSubcategoria}" />  
+
+                        </p:selectOneMenu>
+                        <p:commandButton  update ="datagridProducto" action ="#{JSFMBCarrito.filtrarPorSubcategoria()}" value="" icon="ui-icon-search" style="height: 30px; text-align: center"/>
+
+
+                    </f:facet>
+
+                    <p:panel header="#{produc.nombreProducto}" style="background-color: #AFAFAF; text-align: center">
+                        <h:panelGrid columns="1" style="width: 100%; text-align: center">
+                            <p:graphicImage name="/imagenes/#{produc.imagen}.jpg" style="height: 150px"/>
+                            <h:outputText value="#{produc.descripcionProducto}" />
+                        </h:panelGrid>
+                        <p:commandButton value="Info" icon="ui-icon-circle-zoomout" update=":form:carDetail" oncomplete="PF('carDialog').show()" >
+                            <f:setPropertyActionListener value="#{produc}" target="#{JSFMBCarrito.p}" />
+                        </p:commandButton>
+                    </p:panel>
+                </p:dataGrid>
+
+                <p:dialog header="Informacion de Producto" widgetVar="carDialog" modal="true" hideEffect="fade" resizable="false" showEffect="explode" height="300" width="500">
+                    <p:outputPanel id="carDetail" style="text-align:center;">
+                        <p:panelGrid columns="2" rendered="#{not empty JSFMBCarrito.p}"  style="text-align: center">
+                            <h:outputText value="Marca: " />
+                            <h:outputText value="#{JSFMBCarrito.p.marcaProducto}" />
+                            <h:outputText value="Precio: " />                        
+                            <h:outputText value="#{JSFMBCarrito.p.precioProducto}" >
+                                <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                            </h:outputText>
+                            <h:outputText value="Pais de Fabricacion: " />
+                            <h:outputText value="#{JSFMBCarrito.p.paisFabricaProducto}" />
+                            <h:outputText value="Descuento disponible: " />
+                            <h:outputText value="#{JSFMBCarrito.p.descuentoProducto}" >
+                                <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                            </h:outputText>
+                           <h:outputText value="Categoria: " />
+                            <h:outputText value="#{JSFMBCarrito.p.categoriaIdCategoria.nombreCategoria}" />
+                            <h:outputText value="SubCategoria: " />
+                            <h:outputText value="#{JSFMBCarrito.p.subcategoriaIdSubcategoria.nombreSubcategoria}" />
+                        </p:panelGrid>
+
+                        <p:commandButton icon="ui-icon-circle-plus" value="Agregar al Carrito" action="#{JSFMBCarrito.reinit()}" update=":form:books" onclick="PF('carDialog').hide();" >
+                            <p:collector value="#{JSFMBCarrito.p}" addTo="#{JSFMBCarrito.lstarticulos}" unique="true"/>
+                        </p:commandButton>
+                        <br></br>
+                    </p:outputPanel>
+                </p:dialog>
+
+
+
+                <p:dialog  widgetVar="Carrito" modal="true">
+                    <p:outputPanel id="books">
+                        <p:dataTable value="#{JSFMBCarrito.lstarticulos}" var="book" id="booksTable">
+
+
+                            <p:column headerText="Componentes Seleccionados">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre" />
+                                </f:facet>
+                                <h:outputText value="#{book.nombreProducto}" />
+                            </p:column>
+
+                            <p:column headerText="Componentes Seleccionados">
+                                <f:facet name="header">
+                                    <h:outputText value="Marca" />
+                                </f:facet>
+                                <h:outputText value="#{book.precioProducto}" />
+                            </p:column>
+
+                            <p:column headerText="Componentes Seleccionados">
+                                <f:facet name="header">
+                                    <h:outputText value="descripcion" />
+                                </f:facet>
+                                <h:outputText value="#{book.descripcionProducto}" />
+                            </p:column>
+                            <p:column headerText="Action">
+                                <p:commandLink value="Remove" update=":form:books" process=":form:books">
+                                    <p:collector value="#{book}" removeFrom="#{JSFMBCarrito.lstarticulos}" unique="true"/>
+                                </p:commandLink>
+                            </p:column>
+                        </p:dataTable>
+                    </p:outputPanel>
+                    <h3/>
+
+                    <p:commandButton value="Seguir comprando" oncomplete="PF('Carrito').hide()"/>
+
+                    <p:button value="Finalizar Compra" outcome="/Paginas/Carrito"/>
+
+                </p:dialog>
+
+            </h:form>
+            <br></br>
+            <div style="height: 30px; background-color: #AFAFAF">
+                <h1 style="text-align: center ; color: #ffffff; font-size: 15px">Quito-Ecuador ® 2021 Olympia Sports All rights reserved</h1>
+            </div>
+        </h:body>
+    </f:view>
+</html>
+

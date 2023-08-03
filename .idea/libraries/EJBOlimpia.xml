@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="EJBOlimpia">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/EJBOlimpia/dist/EJBOlimpia.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

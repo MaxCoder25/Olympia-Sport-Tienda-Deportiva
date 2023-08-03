@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="lib1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/WebAppOlimpia/build/web/WEB-INF/lib/com.lowagie.text-2.1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebAppOlimpia/build/web/WEB-INF/lib/poi-3.15.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebAppOlimpia/build/web/WEB-INF/lib/primefaces-7.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/WebAppOlimpia/build/web/WEB-INF/lib/EJBOlimpia.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

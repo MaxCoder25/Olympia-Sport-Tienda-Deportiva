@@ -1,0 +1,167 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Confirmar pedido</title>
+            </f:facet>
+        </h:head>
+
+        <h:body id="body" style="height: 100%">
+            <h:form id="form">
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                
+                <p:fieldset legend="Confirmacion de pedido" style="margin-bottom:20px">
+                        <p:panel header="Detalles del Comprador">
+            
+                 <h:panelGrid columns="2" columnClasses="label, value">        
+            <h:outputText value="Cedula: "/>
+           <h:outputText value="#{loginBean.c.cedulaCliente}"/>
+           
+         <h:outputText value="Nombre: "/>         
+         <h:outputText value="#{loginBean.c.nombreCliente} #{loginBean.c.apellidoCliente} "/>
+        
+         <h:outputText value="Direccion: "/> 
+            <h:outputText value="#{loginBean.c.ciudadCliente}, #{loginBean.c.barrioCliente}, #{loginBean.c.callePrincipalCliente}, #{loginBean.c.numeroCasaCliente}"/>
+         
+            <h:outputText value="Telefono: "/> 
+            <h:outputText value="#{loginBean.c.telefonoCliente}"/>
+
+            
+            <h:outputText value="Correo: "/> 
+            <h:outputText value="#{loginBean.u.email} "/>
+            
+            
+            
+         </h:panelGrid>
+                </p:panel>
+                <br></br>
+
+                <p:panel header="Articulos Seleccionados">
+
+                   <p:outputPanel id="books">
+                          
+                            <p:dataTable value="#{JSFMBCarrito.lstarticulos}" var="a" >
+                            <p:column headerText="Nombre" style="background-color: #AFAFAF">
+                                <f:facet name="header">
+                                    <h:outputText value="Articulo" />
+                                </f:facet>
+                                <h:outputText value="#{a.nombreProducto}" />
+                                  
+                            </p:column>
+
+
+                              <p:column headerText="Cantidad" style="background-color: #AFAFAF">
+                               <f:facet name="header">
+                                    <h:outputText value="Cantidad" />
+                                </f:facet>
+                                 <h:outputText style="  margin-left: 75px" value="#{a.cantidadProducto}" />
+                                 
+                               
+                            </p:column>
+ 
+
+                            
+                            
+                            
+                            
+                            <p:column headerText="Precio Unitario" style="background-color: #AFAFAF">
+                                <f:facet name="header">
+                                    <h:outputText value="Precio Unitario" />
+                                </f:facet>
+                                <h:outputText style="  margin-left: 75px" value="#{a.precioProducto}" >
+                                 <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                                </h:outputText>
+                                
+                                 
+                            </p:column>
+                            
+                             <p:column headerText="Iva" style="background-color: #AFAFAF">
+                                <f:facet name="header">
+                                    <h:outputText value="Iva" />
+                                </f:facet>
+                                 <h:outputText style="  margin-left: 75px" value="#{a.ivaProducto}" >
+                                      <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                                </h:outputText>
+                            </p:column>
+                            
+                            <p:column headerText="Descuento" style="background-color: #AFAFAF">
+                                <f:facet name="header">
+                                    <h:outputText value="Descuento" />
+                                </f:facet>
+                                <h:outputText style="  margin-left: 75px" value="#{a.descuentoProducto}" >
+                                 <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                                </h:outputText>
+                                
+                                  
+                            </p:column>
+                            
+                            <p:column headerText="Precio unitario" style="background-color: #AFAFAF">
+                                <f:facet name="header">
+                                    <h:outputText value="SubTotal Unitario" />
+                                </f:facet>
+                                
+                                <h:outputText style="  margin-left: 75px" value="#{a.precioProducto + a.ivaProducto - a.descuentoProducto}" >
+                                 <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                                </h:outputText>
+                                
+                               <f:facet name="footer">
+                                    <h:outputText value="Total:"/>
+                                </f:facet>
+                            </p:column>
+                            
+                            <p:column headerText="Total" style="background-color: #AFAFAF">
+                                <f:facet name="header">
+                                    <h:outputText value="Total" />
+                                </f:facet>
+                                
+                                <h:outputText style="  margin-left: 75px" value="#{(a.precioProducto + a.ivaProducto - a.descuentoProducto) * a.cantidadProducto}" >
+                                 <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                                </h:outputText>
+                                
+                                <f:facet name="footer">
+                                    <h:outputText    value="#{JSFMBCarrito.totalFinal}">
+                                     <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                                </h:outputText>
+                                </f:facet>
+                            </p:column>
+                            
+                            
+                            
+                            <p:column style="width: 50px; background-color: #AFAFAF">
+                                <p:commandButton icon="ui-icon-closethick" action="#{JSFMBCarrito.reinit()}" update=":form:books" process=":form:books">
+                                    <p:collector value="#{a}" removeFrom="#{JSFMBCarrito.lstarticulos}" unique="true"/>
+                                </p:commandButton>
+                            </p:column>
+                        </p:dataTable>
+                    </p:outputPanel>
+
+                    
+                    
+                     <p:commandButton update="growl" value="Crear Pedido" actionListener="#{ManagedBotones.togglePedido()}" action="#{JSFMBPedidoFactura.guardarPedido(loginBean.c,JSFMBCarrito.lstarticulos)}" disabled="#{ManagedBotones.enabledPedido}" ajax="false"/>
+                 <p:commandButton update="growl" value="Continuar con la factura"  actionListener="#{ManagedBotones.togglePedido()}" action="ConfirmarPagoEmail.xhtml"   disabled="#{not ManagedBotones.enabledPedido}" ajax="false"/>
+        
+                
+                </p:panel>
+                
+         </p:fieldset>
+        
+        </h:form> 
+        
+        </h:body>
+
+
+    </f:view>
+</html>
+

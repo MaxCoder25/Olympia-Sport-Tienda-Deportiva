@@ -1,0 +1,114 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>REPORTES</title>
+
+            </f:facet>
+        </h:head>
+
+
+        <h:body>
+            <div id="card">
+                <p:tabMenu activeIndex="#{param.i}">
+                    <p:menuitem value="Stock de todos los productos" outcome="/Paginas/stockProductos" icon="ui-icon-cart">
+                        <f:param name="i" value="0"/>
+                    </p:menuitem>
+                    <p:menuitem value="Productos mas Vendidos" outcome="/Paginas/masVendidos" icon="ui-icon-cart">
+                        <f:param name="i" value="1"/>
+                    </p:menuitem>
+                    <p:menuitem value="Compradores frecuentes" outcome="/Paginas/mejoresCompradores" icon="ui-icon-info">
+                        <f:param name="i" value="2"/>
+                    </p:menuitem>
+
+                    <p:menuitem value="Regresar a la Página Principal" outcome="/Paginas/PrincipalAdmin" icon="ui-icon-home">
+                        <f:param name="i" value="3"/>
+                    </p:menuitem>
+
+                </p:tabMenu>
+            </div>
+            <p:panel id="ListaPanel" header="MEJORES COMPRADORES" style="margin-bottom:20px">
+                <h:form id="formulario">
+
+
+
+                    <p:dataTable id="tablaBestCompra" var="idxBestCompra"
+                                 value="#{managedBestCompradores.listadoClientes}" 
+                                 rows="10"
+                                 sortOrder="descending" sortBy="#{idxBestCompra.totalVentasCliente}"
+
+                                 >
+                        <p:column headerText="Cedula" filterBy="#{idxBestCompra.cedulaCliente}">
+                            <h:outputText value="#{idxBestCompra.cedulaCliente} ">
+                            </h:outputText>
+                        </p:column> 
+
+                        <p:column headerText="Cliente">
+                            <h:outputText value="#{idxBestCompra.nombreCliente}  #{idxBestCompra.apellidoCliente}" >
+                            </h:outputText>
+                        </p:column> 
+                        <p:column headerText="Vendido" sortBy="#{idxBestCompra.totalVentasCliente} ">
+                            <h:outputText value="#{idxBestCompra.totalVentasCliente}">
+                                <f:convertNumber type="currency" currencySymbol="$ " minFractionDigits="2"/>
+                            </h:outputText>
+
+                        </p:column>   
+                        <p:column headerText="Teléfono">
+                            <h:outputText value="#{idxBestCompra.telefonoCliente}">
+                            </h:outputText>
+                        </p:column>  
+                    </p:dataTable>
+
+
+                    <h5> Exportar a:</h5> 
+
+                    <h:commandLink>
+                        <p:graphicImage value="./../iconosExportar/excel.png" width="24"/>
+                        <p:dataExporter type="xls" target="tablaBestCompra" fileName="mejoresClientes" />
+
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage value="./../iconosExportar/pdf.png" width="24"/>
+                        <p:dataExporter type="pdf" target="tablaBestCompra" fileName="mejoresClientes"/>
+                    </h:commandLink>
+
+                    <h:commandLink>
+                        <p:graphicImage value="./../iconosExportar/csv.png" width="24"/>
+                        <p:dataExporter type="csv" target="tablaBestCompra" fileName="mejoresClientes" />
+                    </h:commandLink>
+
+
+
+                    <p:panel id="GraficoPanel" header="Visualización de las Ventas en el tiempo:" style="margin-top:50px" >  
+                        <h:panelGrid id="panel" style="margin: 0 auto" >
+                            <p:chart type="line" model="#{managedBestCompradores.modeloLineal}" style="width:1000px; height: 500px "/> 
+                        </h:panelGrid>
+
+                    </p:panel>
+                    <p:panel id="GraficoPanel2" header="Visualización de los compradores:" style="margin-top:50px" >  
+                        <h:panelGrid id="panel2"  style="margin: 0 auto">
+                            <p:chart type="bar" model="#{managedBestCompradores.barra}" style="width:1000px; height: 500px "/> 
+                        </h:panelGrid>
+
+                    </p:panel>
+                </h:form>   
+
+
+
+            </p:panel>
+
+
+
+        </h:body>
+
+    </f:view>
+</html>
+

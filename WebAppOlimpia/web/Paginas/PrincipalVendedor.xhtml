@@ -1,0 +1,60 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">  
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Principal Vendedor</title>
+            </f:facet>
+        </h:head>
+        
+        <h:body id="body">
+            <h:form id="form">
+                <p:growl id="growl" showDetail="true" >
+                    <p:autoUpdate/>
+                </p:growl>
+                <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+                <div id="top" >
+                    <h1 style="text-align: center ; color: #ffffff; font-size: 35px">  </h1>
+                </div>
+                <div id="card">
+                    <p:tabMenu activeIndex="#{param.i}">
+                                                  
+                        <p:menuitem value="Listar Pedidos" outcome="ListarPedidosV" icon="ui-icon-info">
+                            <f:param name="i" value="1"/>
+                        </p:menuitem>
+                        
+                         <p:menuitem value="Listar Productos" outcome="ListarProductosV" icon="ui-icon-info" >
+                            <f:param name="i" value="4"/>
+                        </p:menuitem> 
+                            
+                        <p:menuitem value="Listar Facturas" outcome="ListarFacturas" icon="ui-icon-info" >
+                            <f:param name="i" value="6"/>
+                        </p:menuitem> 
+                        
+                         <p:menuitem value="Listar reclamos" outcome="ListarReclamos" icon="ui-icon-info" >
+                            <f:param name="i" value="7"/>
+                        </p:menuitem> 
+                        
+                        <p:menuitem ajax="false" value="Cerrar Sesion" outcome="Login" icon="ui-icon-power" >
+                            <f:param name="i" value="8"/>
+                        </p:menuitem> 
+                    </p:tabMenu>
+                </div>
+                <h3>    </h3>
+                
+                
+            </h:form>
+
+        </h:body>
+
+    </f:view>
+</html>
+

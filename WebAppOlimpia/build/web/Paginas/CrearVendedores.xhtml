@@ -1,0 +1,101 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+
+
+            <f:facet name="first">  
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <link href="./../resources/css/default.css" rel="stylesheet" type="text/css" />
+                <link href="./../resources/css/cssLayout.css" rel="stylesheet" type="text/css" />
+                <title>Crear Vendedor o Administrador </title>
+            </f:facet>
+
+        </h:head>
+
+        <h:body id="body">
+            <h:form>
+
+                <p:panel style="text-align: center; margin-left: 400px; width:600px" header="Crear Vendedor " >
+                    <p:growl id="growl" showDetail="true" >
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+
+                    <p:panelGrid  style="margin-left: 100px; width:400px"  columns="2">
+
+
+                        <h:outputText value="Num Cédula:"/>
+                        <p:inputText maxlength="10" value="#{ManagedClientes.cedulaVendedor}"/>
+
+                        <h:outputText value="Nombres:"/>
+                        <p:inputText value="#{ManagedClientes.nombreVendedor}"/>
+
+                        <h:outputText value="Apellidos:"/>
+                        <p:inputText value="#{ManagedClientes.apellidoVendedor}"/>
+
+                        <h:outputText value="Telefono"/>
+                        <p:inputText maxlength="10"   value="#{ManagedClientes.telefonoVendedor}"/>
+
+
+
+
+                        <h:outputText value="Usuario:"/>
+                        <p:inputText value="#{ManagedClientes.nombreUsuario}"/>
+                        <h:outputText value="Clave:"/>
+                        <p:inputText value="#{ManagedClientes.passwordUsuario}"/>
+                        <h:outputText value="Email:"/>
+                        <p:inputText value="#{ManagedClientes.email}"/>
+
+                        <h:outputText value=" "/>
+                        <p:commandButton update="growl" value="Registrar" id ="btnVendedor" action ="#{ManagedClientes.grabarVendedor()}"/>
+
+                    </p:panelGrid>
+                </p:panel>  
+
+
+            </h:form>
+
+            <h:form>
+                <p:panel style="text-align: center; margin-left: 400px; width:600px" header="Crear Admin " >
+
+                    <p:growl id="growl" showDetail="true" >
+                        <p:autoUpdate/>
+                    </p:growl>
+                    <p:growl id="growl-sticky" for="sticky-key" showDetail="true" sticky="true" />
+
+                    <p:panelGrid style="margin-left: 100px; width:400px" columns="2">
+
+
+
+                        <h:outputText value="Usuario:"/>
+                        <p:inputText value="#{ManagedClientes.nombreAdmin}"/>
+                        <h:outputText value="Clave:"/>
+                        <p:inputText value="#{ManagedClientes.passwordAdmin}"/>
+                        <h:outputText value="Email:"/>
+                        <p:inputText value="#{ManagedClientes.emailAdmin}"/>
+                        <h:outputText value=" "/>
+                        <p:commandButton update="growl" value="Registrar" id ="btnAdmin" action ="#{ManagedClientes.grabarAdmin()}"/>
+
+                    </p:panelGrid>
+                </p:panel>  
+
+            </h:form>
+
+            <h:form>
+                <p:panel style="text-align: center; margin-left: 400px; width:600px"   >
+                        <p:commandButton action="PrincipalAdmin" value="Regresar" style="margin: 4px; width: 99px;" ajax="false"/>
+           
+                </p:panel>
+            </h:form>
+
+        </h:body>
+
+    </f:view>
+</html>
+
